@@ -10,23 +10,20 @@ final class PdfGenerator
 {
     private BrowserFactory $browserFactory;
     private Filesystem $fileSystem;
-    private string $projectFolder;
 
     public function __construct(
         BrowserFactory $browserFactory,
-        Filesystem $fileSystem,
-        string $projectFolder
+        Filesystem $fileSystem
     ) {
         $this->browserFactory = $browserFactory;
         $this->fileSystem = $fileSystem;
-        $this->projectFolder = $projectFolder;
     }
 
     public function generate(string $html, string $path, array $options = []): ?string
     {
         // Generate a random, temp filename and creation date
         $tempName = bin2hex(random_bytes(32)) . '.html';
-        $tempPath = $this->projectFolder . 'tmp/' . $tempName;
+        $tempPath = sys_get_temp_dir() . 'tmp/' . $tempName;
 
         // Save it in a temp file (Chrome can't load HTML from a blob)
         $this->fileSystem->dumpFile($tempPath, $html);
