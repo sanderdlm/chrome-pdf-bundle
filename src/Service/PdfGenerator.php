@@ -19,40 +19,50 @@ final class PdfGenerator
         $this->fileSystem = $fileSystem;
     }
 
-    public function generate(string $html, string $path, array $options = []): ?string
+    /**
+     * Create a PDF file at the specified path from the passed HTML string and a set of options
+     *
+     * @param string $html The rendered Twig template you want to save as a PDF
+     * @param string $path The full path you want to save the file at, including filename
+     * @param array $options The PDF options you want to use during the PDF creation
+     *
+     * @return string
+     */
+    public function generate(string $html, string $path, array $options = []): string
     {
-        // Generate a random, temp filename and creation date
-        $tempName = bin2hex(random_bytes(32)) . '.html';
-        $tempPath = sys_get_temp_dir() . '/' . $tempName;
-
-        // Save it in a temp file (Chrome can't load HTML from a blob)
+        /*
+         * Chrome can't load HTML straight from a string so we have to
+         * save the passed HTML to a temp file and read it from there.
+         */
+        $tempPath = $this->generateTemporaryFilePath();
         $this->fileSystem->dumpFile($tempPath, $html);
 
-        // Spin up a headless Chrome instance
         $browser = $this->browserFactory->createBrowser();
 
         try {
-            // Navigate to the temp file using our headless Chrome
             $page = $browser->createPage();
-
             $page->navigate('file://' . $tempPath)->waitForNavigation();
 
-            // Pdf it
             $pdf = $page->pdf($options);
 
-            // Save the PDF to disk
             $pdf->saveToFile($path);
 
             // Clean up the temp file
             $this->fileSystem->remove($tempPath);
 
             return $path;
-        } catch (Exception $exception) {
-            //log the exception
         } finally {
             $browser->close();
         }
+    }
 
-        return null;
+    /**
+     * Generates a temporary file name in the system temp dir
+     *
+     * @return string
+     */
+    private function generateTemporaryFilePath(): string
+    {
+        return sys_get_temp_dir() . '/' . bin2hex(random_bytes(32)) . '.html';
     }
 }
