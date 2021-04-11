@@ -2,7 +2,6 @@
 
 namespace Dreadnip\ChromePdfBundle\Service;
 
-use Exception;
 use HeadlessChromium\BrowserFactory;
 use Symfony\Component\Filesystem\Filesystem;
 
