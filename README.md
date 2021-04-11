@@ -32,13 +32,13 @@ The bundle registers one service:
 ```php
 // @var Dreadnip\ChromePdfBundle\Service
 $pdfGenerator->generate(
-    $this->renderView(
+    $twig->render(
         'MyPdf.html.twig',
-        array(
-            'some'  => $vars
-        )
+        [
+            'some'  => $vars,
+        ]
     ),
-    '/path/to/the/file.pdf'
+    '/full/path/to/the/file-including-name.pdf'
 );
 ```
 
