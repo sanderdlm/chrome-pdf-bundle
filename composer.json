@@ -1,0 +1,32 @@
+{
+  "name": "dreadnip/chrome-pdf-bundle",
+  "type": "symfony-bundle",
+  "description": "A wrapper around chrome-php/chrome to generate PDFs in Symfony projects",
+  "keywords": ["Symfony", "PDF", "Chrome", "Chromium"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sander De la Marche",
+      "email": "sander@sumocoders.be"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^7.4",
+    "symfony/http-kernel": "^5.2",
+    "twig/twig": "^3.3",
+    "chrome-php/chrome": "^0.9.0",
+    "symfony/dependency-injection": "^5.2",
+    "symfony/config": "^5.2"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "symfony/phpunit-bridge": "^4.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dreadnip\\ChromePdfBundle\\": "src/"
+    }
+  }
+}

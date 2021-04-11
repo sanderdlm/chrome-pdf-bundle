@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <style>
+        {% block styles %}
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+                line-height: 1.5;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            .page {
+                padding: 2rem
+            }
+
+            .break-after {
+                page-break-after: always;
+            }
+        {% endblock %}
+    </style>
+</head>
+<body>
+{% block content %}
+
+{% endblock %}
+</body>
+</html>
