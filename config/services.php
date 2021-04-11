@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Dreadnip\ChromePdfBundle\Service\PdfGenerator;
 use HeadlessChromium\BrowserFactory;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\Filesystem\Filesystem;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -14,16 +13,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
-    $services->load('Dreadnip\ChromePdfBundle\\', __DIR__ . '/../src/*');
-
-    $services->set(BrowserFactory::class)
+    $services->set('browser_factory', BrowserFactory::class)
         ->args([
             '%chrome_binary%',
         ]);
 
     $services->set(PdfGenerator::class)
         ->args([
-            BrowserFactory::class,
-            Filesystem::class,
+            '@browser_factory',
+            '@filesystem',
         ]);
 };
