@@ -12,6 +12,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
+    $services->defaults()
+        ->private()
+        ->autoconfigure()
+        ->autowire();
+
     $services->set(BrowserFactory::class)
         ->args([
             '/usr/bin/chromium',
