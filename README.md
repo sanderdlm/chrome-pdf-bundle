@@ -75,6 +75,26 @@ class TestController
 }
 ```
 
+### Base template
+
+The bundle comes with a base template that can be extended to build PDFs with. This includes helpers for page lay-out and breaking. The template comes with two blocks `styles` for CSS and `content` for the actual PDF content.
+
+```html
+{% extends '@ChromePdf/base.html.twig' %}
+
+{% block content %}
+    <section class="page page-one break-after">
+        <h1>First page</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores enim maxime quasi? Ab accusantium at commodi corporis, distinctio earum facilis harum ipsum maxime, nisi nostrum obcaecati odit officia quod voluptatem?</p>
+    </section>
+    <section class="page page-two">
+        <h2>Second page</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores enim maxime quasi? Ab accusantium at commodi corporis, distinctio earum facilis harum ipsum maxime, nisi nostrum obcaecati odit officia quod voluptatem?</p>
+    </section>
+{% endblock %}
+
+```
+
 Credits
 -------
 
