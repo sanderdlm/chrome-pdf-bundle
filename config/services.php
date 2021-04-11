@@ -26,5 +26,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             '@filesystem',
         ]);
 
-    $services->set(PdfGenerator::class, '@chrome_pdf.pdf_generator');
+    $services->alias(PdfGenerator::class, '@chrome_pdf.pdf_generator');
 };
