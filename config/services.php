@@ -18,14 +18,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autowire()
         ->autoconfigure();
 
-    $services->set('browser_factory', BrowserFactory::class)
+    $services->set('chrome_pdf.browser_factory', BrowserFactory::class)
         ->args([
             '%chrome_binary%',
         ]);
 
-    $services->set(PdfGenerator::class)
-        ->args([
-            '@browser_factory',
-            '@filesystem',
-        ]);
+    $services->alias(BrowserFactory::class, 'chrome_pdf.browser_factory');
+
+    $services->set('chrome_pdf.pdf_generator', PdfGenerator::class);
+
+    $services->alias(PdfGenerator::class, 'chrome_pdf.pdf_generator');
 };
