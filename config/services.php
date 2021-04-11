@@ -13,6 +13,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
+    $services->defaults()
+        ->public()
+        ->autowire()
+        ->autoconfigure();
+
     $services->set('browser_factory', BrowserFactory::class)
         ->args([
             '%chrome_binary%',
