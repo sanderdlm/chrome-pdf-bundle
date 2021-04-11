@@ -25,4 +25,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             '@browser_factory',
             '@filesystem',
         ]);
+
+    $services->set(PdfGenerator::class, '@chrome_pdf.pdf_generator');
 };
