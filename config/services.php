@@ -12,6 +12,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
+    $services->defaults()
+        ->public()
+        ->autowire()
+        ->autoconfigure();
+    
     $services->load('Dreadnip\ChromePdfBundle\\', __DIR__ . '/../src/*');
 
     $services->set(BrowserFactory::class)
