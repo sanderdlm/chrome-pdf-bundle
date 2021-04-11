@@ -23,7 +23,7 @@ final class PdfGenerator
     {
         // Generate a random, temp filename and creation date
         $tempName = bin2hex(random_bytes(32)) . '.html';
-        $tempPath = sys_get_temp_dir() . 'tmp/' . $tempName;
+        $tempPath = sys_get_temp_dir() . '/' . $tempName;
 
         // Save it in a temp file (Chrome can't load HTML from a blob)
         $this->fileSystem->dumpFile($tempPath, $html);
