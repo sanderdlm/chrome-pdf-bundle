@@ -1,7 +1,7 @@
 ChromePdfBundle
 ===============
 
-The ChromePdfBundle is a basic wrapper that leverages the [chrome-php/chrome](https://github.com/chrome-php/chrome) project to quickly render HTML in a headless Chrome window and save the output as a PDF file in your Symfony project.
+The ChromePdfBundle is a Symfony bundle that leverages the [chrome-php/chrome](https://github.com/chrome-php/chrome) project to render HTML and save the output as a PDF file.
 
 Installation
 ------------
@@ -26,7 +26,7 @@ Usage
 The bundle registers two services:
 
 - `chrome_pdf.pdf_generator` allows you to generate pdf files from HTML strings. You can autowire the `PdfGenerator` class in your application.
-- `chrome_pdf.browser_factory` is simply the chrome-php/chrome BrowserFactory class offered as a service within your Symfony application. Use this if you want to fine-tune the PDF generation process. You can use the PdfGenerator class as a starting point and build your custom solution from that.
+- `chrome_pdf.browser_factory` is the chrome-php/chrome BrowserFactory class offered as a service within your Symfony application. Use this if you want to fine-tune the PDF generation process. You can use the PdfGenerator class as a starting point and build your custom solution from that.
 
 ### Render a pdf document from a Twig view and return it from a controller
 
@@ -54,7 +54,7 @@ class TestController
         ];
         
         $browserOptions = [
-            'proxyServer' => '127.0.0.1
+            'proxyServer' => '127.0.0.1'
         ];
 
         $path = $pdfGenerator->generate($html, 'files/test.pdf', $options, $browserOptions);
