@@ -13,12 +13,12 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": "^7.4|^8.0",
-    "symfony/http-kernel": "^3.4|^4.4|^5.2",
-    "twig/twig": "^2.0|^3.3",
-    "chrome-php/chrome": "^0.11",
-    "symfony/dependency-injection": "^3.4|^4.4|^5.2",
-    "symfony/config": "^3.4|^4.4|^5.2"
+    "php": "^7.4 || ^8.0",
+    "twig/twig": "^2.0 || ^3.3",
+    "chrome-php/chrome": "^1.1",
+    "symfony/dependency-injection": "^3.4 || ^4.4 || ^5.2 || ^6.0",
+    "symfony/http-kernel": "^3.4 || ^4.4 || ^5.2 || ^6.0",
+    "symfony/config": "^3.4 || ^4.4 || ^5.2 || ^6.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
