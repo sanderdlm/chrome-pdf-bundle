@@ -1,7 +1,7 @@
 ChromePdfBundle
 ===============
 
-The ChromePdfBundle is a basic wrapper that leverages the `chrome-php` project headless Chrome to quickly save rendered HTML as PDF files in your Symfony project.
+The ChromePdfBundle is a Symfony bundle that leverages the [chrome-php/chrome](https://github.com/chrome-php/chrome) project to render HTML and save the output as a PDF file.
 
 Installation
 ------------
@@ -26,7 +26,7 @@ Usage
 The bundle registers two services:
 
 - `chrome_pdf.pdf_generator` allows you to generate pdf files from HTML strings. You can autowire the `PdfGenerator` class in your application.
-- `chrome_pdf.browser_factory` is simply the chrome-php/chrome BrowserFactory class offered as a service within your Symfony application.
+- `chrome_pdf.browser_factory` is the chrome-php/chrome BrowserFactory class offered as a service within your Symfony application. Use this if you want to fine-tune the PDF generation process. You can use the PdfGenerator class as a starting point and build your custom solution from that.
 
 ### Render a pdf document from a Twig view and return it from a controller
 
@@ -44,7 +44,7 @@ class TestController
     ): Response {
         $html = $twig->render('pdf.html.twig');
 
-        $options = [
+        $printOptions = [
             'printBackground' => true,
             'displayHeaderFooter' => true,
             'preferCSSPageSize' => true,
@@ -52,13 +52,18 @@ class TestController
             'footerTemplate' => "<div></div>",
             'scale' => 1.0,
         ];
+        
+        $browserOptions = [
+            'proxyServer' => '127.0.0.1'
+        ];
 
-        $path = $pdfGenerator->generate($html, 'files/test.pdf', $options);
+        $path = $pdfGenerator->generate($html, 'files/test.pdf', $options, $browserOptions);
 
         return new BinaryFileResponse($path);
     }
 }
 ```
+[Print options](https://github.com/chrome-php/chrome#print-as-pdf) can be used to control the rendering of the PDF. [Browser options](https://github.com/chrome-php/chrome#options) are available to control the headless Chrome instance that will be used to render the PDF. A list of all available options can be found in the chrome-php/chrome repository.
 
 ### Base template
 
@@ -83,4 +88,4 @@ The bundle comes with a base template that can be extended to build PDFs with. T
 Credits
 -------
 
-This bundle is but a simple wrapper around the awesome [chrome-php/chrome](https://github.com/chrome-php/headless-chromium-php) project.
+This bundle is nothing more than a simple wrapper around the awesome [chrome-php/chrome](https://github.com/chrome-php/headless-chromium-php) project.
