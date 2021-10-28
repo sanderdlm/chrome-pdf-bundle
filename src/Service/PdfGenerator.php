@@ -14,17 +14,17 @@ final class PdfGenerator
     private BrowserFactory $browserFactory;
     private RequestStack $requestStack;
     private Filesystem $fileSystem;
-
-    private const TEMP_FOLDER = 'tmp/';
+    private string $projectDir;
 
     public function __construct(
         BrowserFactory $browserFactory,
         RequestStack $requestStack,
-        Filesystem $fileSystem
+        string $projectDir
     ) {
         $this->browserFactory = $browserFactory;
         $this->requestStack = $requestStack;
-        $this->fileSystem = $fileSystem;
+        $this->fileSystem = new Filesystem();
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -39,15 +39,13 @@ final class PdfGenerator
      */
     public function generate(string $html, string $path, array $printOptions = [], array $browserOptions = []): string
     {
-        /*
-         * Chrome can't load HTML straight from a string so we have to
-         * save the passed HTML to a temp file and read it from there.
-         */
-        $tempPath = $this->generateTemporaryFilePath();
+        $relativeTempFilePath = 'tmp/' . bin2hex(random_bytes(32)) . '.html';
 
-        $tempUrl = $this->getAbsoluteUrl($tempPath);
+        $absoluteTempFilePath = $this->projectDir . $relativeTempFilePath;
 
-        $this->fileSystem->dumpFile($tempPath, $html);
+        $this->fileSystem->dumpFile($absoluteTempFilePath, $html);
+
+        $tempUrl = $this->getUrl($relativeTempFilePath);
 
         $browser = $this->browserFactory->createBrowser($browserOptions);
 
@@ -63,7 +61,7 @@ final class PdfGenerator
             $page->pdf($printOptions)->saveToFile($path);
 
             // Clean up the temp file
-            $this->fileSystem->remove($tempPath);
+            $this->fileSystem->remove($absoluteTempFilePath);
 
             return $path;
         } finally {
@@ -72,24 +70,13 @@ final class PdfGenerator
     }
 
     /**
-     * Generates a temporary file name in your project's public folder
-     *
-     * @return string
-     * @throws \Exception
-     */
-    private function generateTemporaryFilePath(): string
-    {
-        return self::TEMP_FOLDER . bin2hex(random_bytes(32)) . '.html';
-    }
-
-    /**
      * Return the absolute URL for our temporary dump file
      *
-     * @param string $tempPath
+     * @param string $path
      * @return string
      */
-    private function getAbsoluteUrl(string $tempPath): string
+    private function getUrl(string $path): string
     {
-        return $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost() . '/' . $tempPath;
+        return $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost() . '/' . $path;
     }
 }
