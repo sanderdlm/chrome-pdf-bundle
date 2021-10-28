@@ -61,7 +61,7 @@ final class PdfGenerator
             $page->pdf($printOptions)->saveToFile($path);
 
             // Clean up the temp file
-            $this->fileSystem->remove($absoluteTempFilePath);
+            $this->fileSystem->remove($this->projectDir . 'tmp');
 
             return $path;
         } finally {
