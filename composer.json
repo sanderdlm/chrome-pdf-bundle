@@ -20,8 +20,8 @@
     "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.2 || ^6.0",
     "symfony/http-kernel": "^3.4 || ^4.4 || ^5.2 || ^6.0",
     "symfony/config": "^3.4 || ^4.4 || ^5.2 || ^6.0",
-    "symfony/process": "^5.3",
-    "symfony/http-client": "^5.3"
+    "symfony/process": "^5.3 || ^6.0",
+    "symfony/http-client": "^5.3 || ^6.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
