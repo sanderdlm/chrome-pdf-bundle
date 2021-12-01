@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dreadnip\ChromePdfBundle\Service;
 
 use HeadlessChromium\BrowserFactory;
-use HeadlessChromium\Page;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -52,15 +51,10 @@ final class PdfGenerator
         try {
             $page = $browser->createPage();
 
-            /*
-             * We check for "network idle" instead of "load" by default to avoid
-             * missing resources like images and webfonts that can take a split second longer to load
-             */
-            $page->navigate($tempUrl)->waitForNavigation(Page::NETWORK_IDLE);
+            $page->navigate($tempUrl)->waitForNavigation();
 
-            $page->pdf($printOptions)->saveToFile($path);
+            $page->pdf($printOptions)->saveToFile($path, 30000);
 
-            // Clean up the temp file
             $this->fileSystem->remove($this->projectDir . 'tmp');
 
             return $path;
