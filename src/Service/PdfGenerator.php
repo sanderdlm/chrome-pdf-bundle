@@ -53,7 +53,7 @@ final class PdfGenerator
 
             $page->navigate($tempUrl)->waitForNavigation();
 
-            $page->pdf($printOptions)->saveToFile($path, 30000);
+            $page->pdf($printOptions)->saveToFile($path, 300000);
 
             $this->fileSystem->remove($this->projectDir . 'tmp');
 
