@@ -15,7 +15,7 @@
   "require": {
     "php": "^7.4 || ^8.0",
     "twig/twig": "^2.0 || ^3.3",
-    "chrome-php/chrome": "^1.1",
+    "chrome-php/chrome": "^1.5",
     "symfony/dependency-injection": "^3.4 || ^4.4 || ^5.2 || ^6.0",
     "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.2 || ^6.0",
     "symfony/http-kernel": "^3.4 || ^4.4 || ^5.2 || ^6.0",
