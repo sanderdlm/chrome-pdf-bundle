@@ -26,10 +26,7 @@ return static function (ContainerConfigurator $containerConfigurator): void
 
     $services->alias(BrowserFactory::class, 'chrome_pdf.browser_factory');
 
-    $services->set('chrome_pdf.pdf_generator', PdfGenerator::class)
-        ->args([
-            '$projectDir' => '%kernel.project_dir%/public/',
-        ]);
+    $services->set('chrome_pdf.pdf_generator', PdfGenerator::class);
 
     $services->alias(PdfGenerator::class, 'chrome_pdf.pdf_generator');
 };

@@ -5,6 +5,7 @@ namespace Dreadnip\ChromePdfBundle\Test;
 use Dreadnip\ChromePdfBundle\Service\PdfGenerator;
 use HeadlessChromium\BrowserFactory;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @covers Dreadnip\ChromePdfBundle\Service\PdfGenerator
  */
@@ -20,7 +21,7 @@ class PdfGeneratorTest extends TestCase
 
         $path = __DIR__ . '/test.pdf';
 
-        $generator->generate($html, $path, [], []);
+        $generator->generate($html, $path);
 
         $this->assertFileExists($path);
 
