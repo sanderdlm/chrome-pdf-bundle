@@ -6,8 +6,7 @@ use Dreadnip\ChromePdfBundle\Service\PdfGenerator;
 use HeadlessChromium\BrowserFactory;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void
-{
+return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
     $parameters->set('chrome_binary', '%env(resolve:CHROME_BINARY)%');

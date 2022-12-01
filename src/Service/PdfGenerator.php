@@ -17,14 +17,8 @@ final class PdfGenerator
     }
 
     /**
-     * Create a PDF file at the specified path from the passed HTML string and a set of options
-     *
-     * @param string $html The rendered Twig template you want to save as a PDF
-     * @param string $path The full path you want to save the file at, including filename
-     * @param array $options The PDF options you want to use during the PDF creation
-     *
-     * @return string
-     * @throws \Exception
+     * @param array<string, string> $printOptions
+     * @param array<string, string> $browserOptions
      */
     public function generate(string $html, string $path, array $printOptions = [], array $browserOptions = []): string
     {
