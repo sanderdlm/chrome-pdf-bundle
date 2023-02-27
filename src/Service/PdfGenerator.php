@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dreadnip\ChromePdfBundle\Service;
 
 use HeadlessChromium\BrowserFactory;
+use HeadlessChromium\Page;
 
 final class PdfGenerator
 {
@@ -24,14 +25,15 @@ final class PdfGenerator
         string $html,
         string $path,
         ?array $printOptions = null,
-        ?array $browserOptions = null
+        ?array $browserOptions = null,
+        ?int $timeout = 30000
     ): string {
         $browser = $this->browserFactory->createBrowser($browserOptions ?? []);
 
         try {
             $page = $browser->createPage();
 
-            $page->setHtml($html);
+            $page->setHtml($html, $timeout,Page::NETWORK_IDLE);
 
             if ($printOptions === null) {
                 $printOptions = [
@@ -44,7 +46,7 @@ final class PdfGenerator
                 ];
             }
 
-            $page->pdf($printOptions)->saveToFile($path, 300000);
+            $page->pdf($printOptions)->saveToFile($path, $timeout);
 
             return $path;
         } finally {
