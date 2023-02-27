@@ -44,6 +44,10 @@ class TestController
     ): Response {
         $html = $twig->render('pdf.html.twig');
 
+        // You can use the default options
+        $path = $pdfGenerator->generate($html, 'files/test.pdf');
+        
+        // Or control everything by passing custom options
         $printOptions = [
             'printBackground' => true,
             'displayHeaderFooter' => true,
@@ -54,10 +58,17 @@ class TestController
         ];
         
         $browserOptions = [
+            'headless' => false,
             'proxyServer' => '127.0.0.1'
         ];
 
-        $path = $pdfGenerator->generate($html, 'files/test.pdf', $options, $browserOptions);
+        $path = $pdfGenerator->generate(
+            html: $html,
+            path: 'files/test.pdf',
+            printOptions: $options,
+            browserOptions: $browserOptions,
+            timeout: 5000
+        );
 
         return new BinaryFileResponse($path);
     }
