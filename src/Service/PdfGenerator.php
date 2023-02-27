@@ -26,14 +26,14 @@ final class PdfGenerator
         string $path,
         ?array $printOptions = null,
         ?array $browserOptions = null,
-        ?int $timeout = 30000
+        int $timeout = 30000
     ): string {
         $browser = $this->browserFactory->createBrowser($browserOptions ?? []);
 
         try {
             $page = $browser->createPage();
 
-            $page->setHtml($html, $timeout,Page::NETWORK_IDLE);
+            $page->setHtml($html, $timeout, Page::NETWORK_IDLE);
 
             if ($printOptions === null) {
                 $printOptions = [
