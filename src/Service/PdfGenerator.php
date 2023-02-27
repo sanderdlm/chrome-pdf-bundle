@@ -20,8 +20,12 @@ final class PdfGenerator
      * @param array<string, string> $printOptions
      * @param array<string, string> $browserOptions
      */
-    public function generate(string $html, string $path, ?array $printOptions = null, ?array $browserOptions = null): string
-    {
+    public function generate(
+        string $html,
+        string $path,
+        ?array $printOptions = null,
+        ?array $browserOptions = null
+    ): string {
         $browser = $this->browserFactory->createBrowser($browserOptions ?? []);
 
         try {
@@ -34,7 +38,7 @@ final class PdfGenerator
                     'printBackground' => true,
                     'displayHeaderFooter' => true,
                     'preferCSSPageSize' => true,
-                    'headerTemplate'=> "<div></div>",
+                    'headerTemplate' => "<div></div>",
                     'footerTemplate' => "<div></div>",
                     'scale' => 1.0,
                 ];
