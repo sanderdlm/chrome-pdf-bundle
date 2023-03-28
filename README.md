@@ -80,7 +80,13 @@ class TestController
             'headless' => false,
         ];
 
-        $path = $pdfGenerator->generate($html, 'files/test.pdf', $options, $browserOptions);
+        $path = $pdfGenerator->generate(
+            html: $html,
+            path: 'files/test.pdf',
+            printOptions: $options,
+            browserOptions: $browserOptions,
+            timeout: 5000
+        );
 
         return new BinaryFileResponse($path);
     }
