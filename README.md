@@ -25,10 +25,31 @@ Usage
 
 The bundle registers two services:
 
-- `chrome_pdf.pdf_generator` allows you to generate pdf files from HTML strings. You can autowire the `PdfGenerator` class in your application.
+- `chrome_pdf.pdf_generator` allows you to generate pdf files from HTML strings. You can autowire the `PdfGenerator` class in your application to get started quickly.
 - `chrome_pdf.browser_factory` is the chrome-php/chrome BrowserFactory class offered as a service within your Symfony application. Use this if you want to fine-tune the PDF generation process. You can use the PdfGenerator class as a starting point and build your custom solution from that.
 
-### Render a pdf document from a Twig view and return it from a controller
+### Basic example: render a pdf document in a controller
+
+```php
+use Dreadnip\ChromePdfBundle\Service\PdfGenerator;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+
+class TestController extends AbstractController
+{
+    public function __invoke(PdfGenerator $pdfGenerator): Response
+    {
+        $html = $this->render('pdf.html.twig');
+
+        $path = $pdfGenerator->generate($html, 'files/test.pdf');
+   
+        return new BinaryFileResponse($path);
+    }
+}
+```
+
+### Advanced example: render a pdf document in a controller with custom options
 
 ```php
 use Dreadnip\ChromePdfBundle\Service\PdfGenerator;
@@ -44,6 +65,7 @@ class TestController
     ): Response {
         $html = $twig->render('pdf.html.twig');
 
+        // Control everything by passing custom options
         $printOptions = [
             'printBackground' => true,
             'displayHeaderFooter' => true,
@@ -53,8 +75,9 @@ class TestController
             'scale' => 1.0,
         ];
         
+        // Setting headless to false helps you debug issues
         $browserOptions = [
-            'proxyServer' => '127.0.0.1'
+            'headless' => false,
         ];
 
         $path = $pdfGenerator->generate($html, 'files/test.pdf', $options, $browserOptions);
@@ -63,7 +86,11 @@ class TestController
     }
 }
 ```
-[Print options](https://github.com/chrome-php/chrome#print-as-pdf) can be used to control the rendering of the PDF. [Browser options](https://github.com/chrome-php/chrome#options) are available to control the headless Chrome instance that will be used to render the PDF. A list of all available options can be found in the chrome-php/chrome repository.
+[Print options](https://github.com/chrome-php/chrome#print-as-pdf) can be used to control the rendering of the PDF.
+
+[Browser options](https://github.com/chrome-php/chrome#options) are available to control the headless Chrome instance that will be used to render the PDF. 
+
+A list of all available options can be found in the chrome-php/chrome repository.
 
 ### Base template
 
