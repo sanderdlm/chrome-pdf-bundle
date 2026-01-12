@@ -15,10 +15,10 @@
   "require": {
     "php": "^7.4 || ^8.0",
     "chrome-php/chrome": "^1.8",
-    "symfony/dependency-injection": "^3.4 || ^4.4 || ^5.2 || ^6.0 || ^7.0",
-    "symfony/http-kernel": "^3.4 || ^4.4 || ^5.2 || ^6.0 || ^7.0",
-    "symfony/config": "^3.4 || ^4.4 || ^5.2 || ^6.0 || ^7.0",
-    "symfony/process": "^3.4 || ^4.4 || ^5.2 || ^6.0 || ^7.0"
+    "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.4 || ^8.0",
+    "symfony/http-kernel": "^5.4 || ^6.4 || ^7.4 || ^8.0",
+    "symfony/config": "^5.4 || ^6.4 || ^7.4 || ^8.0",
+    "symfony/process": "^5.4 || ^6.4 || ^7.4 || ^8.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
